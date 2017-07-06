@@ -7,6 +7,9 @@ var path = require("path");
 var PORT = process.env.PORT || 3000;
 var app = express();
 
+// Requiring our models for syncing
+var db = require("./models");
+
 //serves the public directory for access
 app.use(express.static("public"));
 
@@ -23,4 +26,10 @@ var routes = require("./controllers/burger_controller.js");
 
 app.use("/", routes);
 
-app.listen(PORT);
+db.sequelize.sync({ force: true }).then(function() {
+  app.listen(PORT, function() {
+    console.log("App listening on PORT " + PORT);
+  });
+});
+
+
