@@ -30,6 +30,9 @@ router.post("/", function(req, res) {
       burger_name: req.body.name
     }).then(function(dbBurger){
       res.redirect("/");
+    }).catch(function (err){
+      console.log("Error Message: " + err);
+      res.redirect("/");
     });
 
   // console.log(req.body);
